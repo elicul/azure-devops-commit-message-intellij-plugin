@@ -1,0 +1,1 @@
+# azure-devops-commit-message-intellij-plugin
