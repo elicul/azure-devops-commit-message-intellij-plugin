@@ -1,20 +1,32 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-  <id>com.elicul.azure-devops-commit-message-plugin</id>
-  <name>Azure DevOps Commit Message</name>
-  <vendor email="enzo.licul@hotmail.com">elicul</vendor>
+    <id>com.elicul.azure-devops-commit-message-plugin</id>
+    <name>Azure DevOps Commit Message</name>
+    <vendor email="enzo.licul@hotmail.com">elicul</vendor>
 
-  <!-- Product and plugin compatibility requirements.
-       Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
-  <depends>com.intellij.modules.platform</depends>
-  <depends>Git4Idea</depends>
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>Git4Idea</depends>
 
-  <!-- Extension points defined by the plugin.
-       Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
-  <extensions defaultExtensionNs="com.intellij">
-    <projectService serviceImplementation="com.elicul.azuredevopscommitmessageplugin.services.CommitMessageService"/>
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <projectService
+                serviceImplementation="com.elicul.azuredevopscommitmessageplugin.services.CommitMessageService"/>
 
-    <vcs.commitMessageProvider implementation="com.elicul.azuredevopscommitmessageplugin.provider.PluginProvider"/>
-    <checkinHandlerFactory implementation="com.elicul.azuredevopscommitmessageplugin.handler.BranchCheckoutHandler"/>
-  </extensions>
+        <vcs.commitMessageProvider implementation="com.elicul.azuredevopscommitmessageplugin.provider.PluginProvider"/>
+        <checkinHandlerFactory
+                implementation="com.elicul.azuredevopscommitmessageplugin.handler.BranchCheckoutHandler"/>
+    </extensions>
+
+    <actions>
+        <action id="action.PluginAction"
+                class="com.elicul.azuredevopscommitmessageplugin.action.PluginAction"
+                text="Refresh Azure DevOps Commit Message"
+                description="Refresh Azure DevOps id from current branch into commit message"
+                icon="/icons/azureDevOps.svg">
+            <add-to-group group-id="Vcs.MessageActionGroup" anchor="first"/>
+        </action>
+    </actions>
 </idea-plugin>
