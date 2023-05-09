@@ -5,8 +5,8 @@ import java.util.*
 import java.util.regex.Pattern
 
 private const val DEVOPS_BRANCH_REGEX = "[0-9]+"
-private const val PREFIX = "#"
-private const val INFIX = " "
+private const val PREFIX = "[#"
+private const val INFIX = "] "
 
 class CommitMessageService : Disposable {
     fun getCommitMessageFromBranchName(branchName: String?): String {

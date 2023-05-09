@@ -22,7 +22,9 @@ A simple plugin that automatically populates the Git Commit message with the Bra
 
 ### How to use the plugin
 
-Open Git commit tool or commit dialog and your commit message will already have the required PBI/BUG id populated.
+Open Git commit tool or commit dialog and your commit message will already have the required PBI/BUG id populated. 
+
+If you aren't familiar with the PBI/BUG branches creation please check more on this [link](https://learn.microsoft.com/en-us/azure/devops/boards/backlogs/connect-work-items-to-git-dev-ops?view=azure-devops).
 
 ![Example](examples/example.png)
 
