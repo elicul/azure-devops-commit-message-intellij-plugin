@@ -16,12 +16,6 @@ class PluginProvider : CommitMessageProvider {
         val repositoryManager = GitUtil.getRepositoryManager(project)
         val branch = repositoryManager.repositories[0].currentBranch
 
-        val newCommitMessage = commitMessageService.getCommitMessageFromBranchName(branch?.name)
-
-        return if (newCommitMessage == "") {
-            comment
-        } else {
-            newCommitMessage
-        }
+        return commitMessageService.applyBranchNameToCommitMessage(branch?.name, comment)
     }
 }

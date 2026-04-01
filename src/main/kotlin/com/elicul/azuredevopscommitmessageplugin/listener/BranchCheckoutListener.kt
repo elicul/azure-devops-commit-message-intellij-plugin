@@ -13,7 +13,7 @@ class BranchCheckoutListener(
     }
 
     override fun branchHasChanged(branchName: String) {
-        val commitMessage = commitMessageService.getCommitMessageFromBranchName(branchName)
+        val commitMessage = commitMessageService.applyBranchNameToCommitMessage(branchName, panel.commitMessage)
         panel.commitMessage = commitMessage
     }
 }

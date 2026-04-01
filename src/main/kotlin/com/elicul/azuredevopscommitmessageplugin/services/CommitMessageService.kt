@@ -7,17 +7,18 @@ import java.util.regex.Pattern
 private const val DEVOPS_BRANCH_REGEX = "[0-9]+"
 private const val PREFIX = "[#"
 private const val INFIX = "] "
+private const val PREFIX_REGEX = "^\\[#\\d+\\]\\s*"
 
 class CommitMessageService : Disposable {
-    fun getCommitMessageFromBranchName(branchName: String?): String {
+    fun applyBranchNameToCommitMessage(branchName: String?, currentMessage: String?): String {
+        val azureNumber = branchName?.let { extractAzureDevOpsNumberFromBranch(it) }
+        val sanitizedMessage = sanitizeCommitMessage(currentMessage)
 
-        if (branchName == null)
-            return ""
-
-        val azureNumber = extractAzureDevOpsNumberFromBranch(branchName)
-        return if (azureNumber != null)
-            createCommitMessage(azureNumber)
-        else ""
+        return if (azureNumber != null) {
+            createCommitMessagePrefix(azureNumber) + sanitizedMessage
+        } else {
+            sanitizedMessage
+        }
     }
 
     private fun extractAzureDevOpsNumberFromBranch(
@@ -29,7 +30,15 @@ class CommitMessageService : Disposable {
         return azureNumber?.value
     }
 
-    private fun createCommitMessage(azureNumber: String): String {
+    private fun sanitizeCommitMessage(currentMessage: String?): String {
+        if (currentMessage.isNullOrBlank()) {
+            return ""
+        }
+
+        return currentMessage.replace(PREFIX_REGEX.toRegex(), "")
+    }
+
+    private fun createCommitMessagePrefix(azureNumber: String): String {
         return String.format(
             Locale.US,
             "%s%s%s",
